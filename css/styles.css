@@ -274,6 +274,39 @@ p {
     text-align: center;
 }
 
+/* ===== MOBILE MENU ===== */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1010; /* Ensure it's above everything */
+    position: relative;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: #3A2A1A;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
 /* ===== HERO SECTION ===== */
 .hero {
     background: linear-gradient(135deg, #F2F2F2 0%, #E8E6E0 100%);
@@ -1203,23 +1236,122 @@ p {
 /* Tablets */
 @media (max-width: 768px) {
     .header-content {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
     
-    .main-nav {
-        order: 3;
-        justify-content: flex-start;
-    }
-    
-    .nav-list {
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+    .mobile-menu-btn {
+        display: flex;
+        position: relative;
+        z-index: 1001; /* Higher than everything else */
     }
     
     .header-icons {
-        order: 2;
+        position: relative;
+        z-index: 1001; /* Ensure icons stay above menu */
+        display: flex;
+        align-items: center;
+    }
+    
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: #FFFFFF; /* Ensure header has background */
+    }
+    
+    body {
+        padding-top: 80px; /* Account for fixed header */
+    }
+    
+    .main-nav {
+        position: fixed;
+        top: 80px; /* Position below the header */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: #FFFFFF;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-100vh); /* Move completely off screen */
+        transition: transform 0.3s ease-in-out;
+        z-index: 990; /* Lower than header but still above content */
+        overflow-y: auto;
+        opacity: 0; /* Start hidden */
+        visibility: hidden; /* Start hidden */
+    }
+    
+    .main-nav.active {
+        transform: translateY(0); /* Show menu when active */
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Visible */
+    }
+    
+    .nav-list {
+        flex-direction: column;
+        padding: 2rem 0;
+        gap: 0;
+    }
+    
+    .nav-list li {
+        width: 100%;
+        border-bottom: 1px solid #F2F2F2;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        display: none; /* Hide by default */
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background-color: #F8F6F3;
+        margin: 0;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        display: block;
+        max-height: 500px; /* Allow enough space for all items */
+    }
+    
+    .dropdown-menu a {
+        padding: 0.75rem 3rem;
+        font-size: 1rem;
+    }
+    
+    /* Add dropdown indicator */
+    .dropdown > .nav-link:after {
+        content: '▼';
+        margin-left: 8px;
+        font-size: 0.8em;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .dropdown.active > .nav-link:after {
+        transform: rotate(180deg);
+    }
+    
+    .header-icons {
+        gap: 0.5rem;
+    }
+    
+    .search-btn,
+    .cart-btn {
+        display: none;
     }
     
     .hero {
