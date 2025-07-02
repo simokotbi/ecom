@@ -1414,12 +1414,13 @@ p {
     }
     
     .values-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 1.5rem;
     }
     
-    .value-card {
-        padding: 2rem 1.5rem;
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .process-step {
@@ -1568,6 +1569,12 @@ p {
     
     .faq-question {
         font-size: 1.1rem;
+    }
+    
+    .values-grid,
+    .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
     }
 }
 
