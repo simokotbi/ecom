@@ -174,6 +174,7 @@ p {
     font-style: italic;
 }
 
+
 .main-nav {
     flex-grow: 1;
     display: flex;
@@ -1480,6 +1481,11 @@ p {
     
     .faq-grid {
         grid-template-columns: 1fr;
+    }
+    
+    main,
+    .child {
+        margin-top: 40px;
     }
 }
 
